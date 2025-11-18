@@ -1,5 +1,7 @@
 # 1) Introduction to AWS IAM
 
+En ikävä kyllä jostain syystä ottanut screenshotteja tästä.
+
 Labrassa tavoitteena ymmärtää käytännössä AWS IAM -palvelun perusteet: käyttäjien, ryhmien ja käyttöoikeuksien hallinta oikeassa AWS-ympäristössä
 
 Vaiheet ohjeiden mukaan: 
@@ -53,6 +55,15 @@ user-3:n oikeuksia ei erikseen testattu, mahdollisesti koska  EC2-Admin-ryhmää
 
 
 # 2) Configure Azure Role-Based Access Control
+
+
+Assigned an Azure built-in role to a user.
+Tested an Azure built-in role assignment.
+Created a custom role.
+
+
+
+
 
 
 
