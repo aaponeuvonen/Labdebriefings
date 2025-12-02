@@ -93,5 +93,56 @@ Näillä tarkoitus sallia selaimesta tulevat web-pyynnöt koko internetistä
 #### Lopputuloksena toimiva web-palvelin ja konkreettinen esimerkki että se toimii
 
   
-# 2) 
+# 2) Configure network access (Azure)
+
+## Ensiksi hain VM:n julkisen ip osoitteen 
+
+#### Ajoin komennon jolla hain julkisen ip osoitteen ja sitten tallensin ipn muuttujaan $IPADDRESS
+
+Testasin Web palvelinta komennolla:
+
+#### $ curl --connect-timeout 5 http://$IPADDRESS
+
+- Ei toiminut koska NSG:ssä ei oltu avattu porttia 80
+
+- Listasin VM:ään liittyvän Network Security Groupin (NSG)
+
+- Siinä näkyi, että ainut sallittu sääntö oli "default allow SSH" eli portti 22
+
+#### Loin uuden verkkoturvasäännön
+
+Loin allow-http -säännön, joka sallii:
+
+- Inbound
+
+- Port 80
+
+- TCP
+
+- Source: *
+
+- Priority: 100
+
+-  Action: Allow
+
+#### Uudelleenlistasin NSG:n ja näin:
+
+default-allow-ssh   1000   22   Allow
+allow-http          100    80   Allow
+
+
+<img width="761" height="188" alt="Screenshot 2025-12-02 at 0 31 42" src="https://github.com/user-attachments/assets/db22d4fe-c9d5-4abd-8ad2-c2f247431df4" />
+
+#### Portti 80 toimi ja sivu latautui cURL komennolla onnistuneesti 
+
+
+<img width="1470" height="956" alt="Screenshot 2025-12-02 at 0 31 48" src="https://github.com/user-attachments/assets/b317dfc9-ce49-4534-8328-9f8d76a75c6d" />
+
+## Yhteenveto
+
+#### Tajusin miten Azure Virtual Network ja Network Security Group toimivat yhdessä suojatakseen virtuaalikoneita. Loin käytännössä oman palomuurisäännön allow-http, tajusin sen prioriteetit ja miten se vaikututtaa, sitten testasin että säädöt toimivat käytännössä avaamalla web-palvelimen portin 80, sekä vierailemalla sivulla.
+
+
+
+
 
